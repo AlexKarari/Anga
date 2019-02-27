@@ -7,32 +7,28 @@ from .forms import CityForm
 
 def index(request):
     cities = City.objects.all() #returns all cities in the database
-    
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=9823cc265bbab7813920b3192917ae21'
-    
     if request.method == 'POST':  # only true if form is submitted
         # add actual request data to form for processing
         form = CityForm(request.POST)
         form.save()  # will validate and save if validate
-
+        
     form = CityForm()
-
+        
     weather_data = []
-
+    
     for city in cities:
-        # Requesting the API data and converting the JSON into Python objects
-        city_weather = requests.get(url.format(city)).json()
-
+        city_weather = requests.get(url.format(city)).json() # Requesting the API data and converting the JSON into Python objects
+  
         weather = {
             'city': city,
             'temperature': city_weather['main']['temp'],
             'description': city_weather['weather'][0]['description'],
             'icon': city_weather['weather'][0]['icon']
             }
-            
-        weather_data.append(weather) #add the data for the current city into our list
-            
+        weather_data.append(weather) #add the data for the current city into our list      
+        
         context = {'weather_data': weather_data, 'form': form}
-
+        
         return render(request, 'index.html', context) #Returns the index.html template
 
