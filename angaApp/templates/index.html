@@ -24,10 +24,10 @@
             <div class="columns">
                 <div class="column is-offset-4 is-4">
                     <form method="POST">
-                        {% csrf_token %}
+                        {%csrf_token %}
                         <div class="field has-addons">
                             <div class="control is-expanded">
-                                {{form.name}}
+                                {{ form.name }}
                             </div>
                             <div class="control">
                                 <button class="button is-info">
@@ -44,7 +44,7 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
-                    {% for weather in weather_data %}
+                    {%for weather in weather_data %}
                     <div class="box">
                         <article class="media">
                             <div class="media-left">
@@ -55,16 +55,16 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <span class="title">{{weather.city}}</span>
+                                        <span class="title">{{ weather.city }}</span>
                                         <br>
                                         <span class="subtitle">{{weather.temperature}} °C</span>
-                                        <br> {{weather.description}}
+                                        <br> {{ weather.description }}
                                     </p>
                                 </div>
                             </div>
                         </article>
                     </div>
-                    {% endfor %}
+                    {%endfor %}
                 </div>
             </div>
         </div>

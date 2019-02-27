@@ -22,17 +22,17 @@ def index(request):
     for city in cities:
         # Requesting the API data and converting the JSON into Python objects
         city_weather = requests.get(url.format(city)).json()
+
         weather = {
+            'city': city,
+            'temperature': city_weather['main']['temp'],
+            'description': city_weather['weather'][0]['description'],
+            'icon': city_weather['weather'][0]['icon']
+            }
+            
+        weather_data.append(weather) #add the data for the current city into our list
+            
+        context = {'weather_data': weather_data, 'form': form}
 
-        'city': city,
-        'temperature': city_weather['main']['temp'],
-        'description': city_weather['weather'][0]['description'],
-        'icon': city_weather['weather'][0]['icon']
-    }
-
-    weather_data.append(weather) #add the data for the current city into our list
-
-    context = {'weather_data': weather_data, 'form': form}
-
-    return render(request, 'index.html', context) #Returns the index.html template
+        return render(request, 'index.html', context) #Returns the index.html template
 
